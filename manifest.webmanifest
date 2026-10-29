@@ -1,0 +1,20 @@
+{
+  "id": "./",
+  "name": "NovaForge Studio",
+  "short_name": "NovaForge",
+  "description": "Entorno móvil para crear proyectos web y bots.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080D18",
+  "theme_color": "#080D18",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

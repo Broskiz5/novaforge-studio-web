@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101322">
+  <meta name="description" content="NovaForge Studio: entorno móvil para crear proyectos web y bots.">
+<meta property="og:title" content="NovaForge Studio">
+<meta property="og:description" content="Entorno móvil para crear proyectos web y bots desde un solo espacio de trabajo.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NovaForge Studio">
+<meta name="twitter:description" content="Crea proyectos web y bots desde tu espacio de trabajo móvil.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css?v=102">
+  <title>NovaForge Studio</title>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#home">
+        <span class="brand-mark">N</span>
+        <span><strong>NovaForge Studio</strong><small>Mobile workspace</small></span>
+      </a>
+
+      <nav class="navigation" aria-label="Navegación principal">
+        <button class="nav-link active" data-view="home">⌂ <span data-i18n="nav.home">Inicio</span></button>
+        <button class="nav-link" data-view="projects">▤ <span data-i18n="nav.projects">Proyectos</span></button>
+        <button class="nav-link" data-view="editor">⌘ <span data-i18n="nav.editor">Editor</span></button>
+        <button class="nav-link" data-view="builder">✧ <span data-i18n="nav.builder">Crear bot</span></button>
+        <button class="nav-link" data-view="preview">▣ <span data-i18n="nav.preview">Vista previa</span></button>
+        <button class="nav-link" data-view="assistant">✳ <span data-i18n="nav.assistant">Asistente</span></button>
+        <button class="nav-link" data-view="wiki">▧ <span data-i18n="nav.wiki">Wiki</span></button>
+        <button class="nav-link" data-view="settings">⚙ <span data-i18n="nav.settings">Ajustes</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <span class="status-dot"></span>
+        <span data-i18n="app.local">Espacio de trabajo local</span>
+        <small>V2 · 0.1.0</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menu-button" aria-label="Abrir menú">☰</button>
+        <div><span class="eyebrow">NOVAFORGE / STUDIO</span><h1 id="page-title">Inicio</h1></div>
+        <button class="icon-button" id="quick-settings" aria-label="Ajustes">⚙</button>
+      </header>
+
+      <section class="view active" id="view-home">
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="pill">YOUR MOBILE DEV SPACE</span>
+            <h2>Convertí tus ideas<br>en <span>proyectos reales.</span></h2>
+            <p>Un espacio de trabajo para crear, organizar y probar tus proyectos desde el celular.</p>
+            <button class="primary" data-action="new-project">＋ Crear proyecto</button>
+          </div>
+          <div class="hero-orb"><span>N</span></div>
+        </div>
+
+        <div class="section-heading">
+          <div><span class="eyebrow">WORKSPACE</span><h2>Tu espacio</h2></div>
+          <button class="text-button" data-view="projects">Ver proyectos →</button>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card"><span>▤</span><small>Proyectos</small><strong id="stat-projects">0</strong></article>
+          <article class="stat-card"><span>⌘</span><small>Archivos</small><strong id="stat-files">0</strong></article>
+          <article class="stat-card"><span>◉</span><small>Tipo web</small><strong id="stat-web">0</strong></article>
+        </div>
+
+        <div class="section-heading"><div><span class="eyebrow">RECENT</span><h2>Proyectos recientes</h2></div></div>
+        <div class="project-grid" id="recent-projects"></div>
+
+        <div class="notice">
+          <span>ⓘ</span><div><strong>Diseñado para móvil</strong><p>Los proyectos se guardan en el almacenamiento local de este navegador. Exportalos regularmente para evitar perderlos si borrás los datos de la aplicación.</p></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-projects">
+        <div class="page-intro"><span class="eyebrow">WORKSPACE</span><h2>Proyectos</h2><p>Creá y organizá tus espacios de trabajo.</p></div>
+        <div class="toolbar"><input id="project-search" placeholder="Buscar proyectos..." aria-label="Buscar proyectos"><button class="primary" data-action="new-project">＋ Nuevo</button></div>
+        <div class="project-grid" id="all-projects"></div>
+        <div class="empty-state" id="projects-empty" hidden><span>▤</span><h3>Tu espacio empieza acá</h3><p>Creá tu primer proyecto para empezar.</p><button class="primary" data-action="new-project">Crear proyecto</button></div>
+      </section>
+
+      <section class="view" id="view-editor">
+        <div class="page-intro"><span class="eyebrow">DEVELOPMENT</span><h2>Editor</h2><p>Editá archivos de tus proyectos web y guardá los cambios.</p></div>
+        <div class="editor-layout panel">
+          <div class="editor-toolbar">
+            <select id="editor-project" aria-label="Proyecto"></select>
+            <button class="secondary" id="new-file">＋ Archivo</button>
+            <button class="primary" id="save-file">Guardar</button>
+          </div>
+          <div class="editor-workspace">
+            <div class="file-list" id="file-list"></div>
+            <div class="editor-main">
+              <div class="file-heading"><span id="active-file-name">index.html</span><span id="save-status">Sin cambios</span></div>
+              <textarea id="code-editor" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Código del archivo" placeholder="Seleccioná o creá un archivo..."></textarea>
+              <div class="editor-footer"><span>Editor de texto · V2</span><span id="char-count">0 caracteres</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="hint">Esta versión edita y guarda archivos dentro del proyecto local. Todavía no es un editor de archivos del sistema Android.</p>
+      </section>
+
+      <section class="view" id="view-builder">
+        <div class="page-intro"><span class="eyebrow">PROJECT GENERATOR</span><h2>Crear proyecto</h2><p>Elegí una base inicial para tu próximo desarrollo.</p></div>
+        <div class="builder-grid">
+          <button class="template-card" data-template="web"><span class="template-icon">▣</span><strong>Proyecto web</strong><p>HTML, CSS y JavaScript con una página inicial.</p><span class="template-action">Crear proyecto →</span></button>
+          <button class="template-card" data-template="discord"><span class="template-icon">◈</span><strong>Bot de Discord</strong><p>Estructura inicial de un bot Node.js para continuar en Termux.</p><span class="template-action">Crear proyecto →</span></button>
+          <button class="template-card" data-template="blank"><span class="template-icon">＋</span><strong>Proyecto vacío</strong><p>Un espacio de trabajo con un archivo inicial.</p><span class="template-action">Crear proyecto →</span></button>
+        </div>
+        <div class="notice"><span>ⓘ</span><div><strong>Importante</strong><p>Crear la estructura no inicia el bot. La instalación de dependencias y la ejecución de Node.js se harán en Termux en una etapa posterior.</p></div></div>
+      </section>
+
+      <section class="view" id="view-preview">
+        <div class="page-intro"><span class="eyebrow">WEB ENVIRONMENT</span><h2>Vista previa</h2><p>Probá los proyectos web dentro de NovaForge Studio.</p></div>
+        <div class="preview-toolbar panel">
+          <select id="preview-project" aria-label="Proyecto para vista previa"></select>
+          <button class="secondary" id="refresh-preview">↻ Actualizar</button>
+          <button class="secondary" id="fullscreen-preview">⛶ Ampliar</button>
+        </div>
+        <div class="preview-window panel"><div class="preview-address"><span class="status-dot"></span><span id="preview-status">Esperando proyecto web</span></div><iframe id="preview-frame" title="Vista previa web" sandbox="allow-scripts"></iframe></div>
+        <p class="hint">La vista previa está aislada. No tiene acceso al sistema de archivos ni a las funciones internas de NovaForge Studio.</p>
+      </section>
+
+      <section class="view" id="view-assistant">
+        <div class="page-intro"><span class="eyebrow">DEVELOPER SUPPORT</span><h2>Asistente</h2><p>Un espacio preparado para integrar ayuda de programación.</p></div>
+        <div class="assistant-panel panel"><div class="assistant-icon">✳</div><h3>Tu asistente de desarrollo</h3><p>Esta versión todavía no está conectada a un servicio de inteligencia artificial. Podés preparar una consulta y copiarla para usarla en tu herramienta de asistencia favorita.</p><label for="assistant-question">¿En qué estás trabajando?</label><textarea id="assistant-question" placeholder="Ej.: Quiero crear un sistema de comandos para mi bot de Discord..."></textarea><button class="primary" id="copy-question">Copiar consulta</button><p class="hint" id="assistant-status">Tus consultas no se envían automáticamente a ningún servidor.</p></div>
+      </section>
+
+      <section class="view" id="view-wiki">
+        <div class="page-intro"><span class="eyebrow">DOCUMENTATION</span><h2>Wiki de NovaForge</h2><p>Guía de uso, funciones, reglas y próximos sistemas.</p></div>
+        <div class="wiki-layout">
+          <div class="wiki-menu panel" id="wiki-menu"></div>
+          <article class="wiki-article panel"><span class="eyebrow" id="wiki-category">GUÍA</span><h2 id="wiki-title">Bienvenido a NovaForge Studio</h2><div id="wiki-content"></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="page-intro"><span class="eyebrow">PREFERENCES</span><h2>Ajustes</h2><p>Configurá tu espacio de trabajo.</p></div>
+        <div class="settings-list panel">
+          <div class="setting-row"><div><strong>Idioma</strong><p>Español disponible; estructura preparada para añadir inglés.</p></div><select id="language-select"><option value="es">Español</option><option value="en">English (en preparación)</option></select></div>
+          <div class="setting-row"><div><strong>Exportar proyectos</strong><p>Descargá una copia de seguridad de tus proyectos.</p></div><button class="secondary" id="export-projects">Exportar JSON</button></div>
+          <div class="setting-row"><div><strong>Importar proyectos</strong><p>Restaurá una copia JSON creada por NovaForge.</p></div><button class="secondary" id="import-projects">Elegir archivo</button><input id="import-file" type="file" accept=".json,application/json" hidden></div>
+          <div class="setting-row"><div><strong>Restablecer espacio</strong><p>Eliminá todos los proyectos locales. Esta acción no se puede deshacer.</p></div><button class="danger" id="reset-projects">Restablecer</button></div>
+          <div class="setting-row"><div><strong>Versión</strong><p>NovaForge Studio · Base inicial 0.1.0</p></div><span class="pill">LOCAL</span></div>
+        </div>
+      </section>
+
+      <footer>NOVAFORGE STUDIO <span>·</span> Construido para crear desde móvil</footer>
+    </main>
+  </div>
+
+  <dialog id="project-dialog">
+    <form id="project-form">
+      <div class="dialog-heading"><div><span class="eyebrow">NEW WORKSPACE</span><h2>Crear proyecto</h2></div><button type="button" class="icon-button" id="close-dialog" aria-label="Cerrar">×</button></div>
+      <label for="project-name">Nombre</label><input id="project-name" required maxlength="60" placeholder="Mi proyecto">
+      <label for="project-type">Tipo de proyecto</label><select id="project-type"><option value="web">Web</option><option value="discord">Bot de Discord</option><option value="blank">Vacío</option></select>
+      <div class="dialog-actions"><button type="button" class="secondary" id="cancel-dialog">Cancelar</button><button class="primary" type="submit">Crear</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+  <script src="./terminal.js"></script>
+  <script src="./bot-panel.js"></script>
+  <script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./sw.js").catch(() => {});</script>
+</body>
+</html>
